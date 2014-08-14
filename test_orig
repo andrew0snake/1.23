@@ -107,6 +107,7 @@ void /*decomment(int len*/,char text[10000])
 	if (text[i]=='/')
 	    if (text[i-1]=='/')//{
 	//	text[i]=' ';
+		printf("// inserted comment//"); //
 		text[i-1]=' ';
 	    }
     
