@@ -106,20 +106,20 @@ void decomment(int len,char text[10000])
     for (i=1;i<=len;++i){
 	if (text[i]=='/')
 	    if (text[i-1]=='/'){
-		j=i;
-		k=0;
-		    while(text[j]!='\n'){
+		j=(i-1);
+		k=1;
+		    while( (text[j]!='\n') || (k==0) ){
 		    if(text[j]=='"')
-			k=1;
-		    --j;
-		}
-		if(k==1){
-		    j=i;
-		    while( (text[j]!='\n') || (text[j]!=EOF) ){
-		    if(text[j]=='"')
-			k=1;
-		    else 
 			k=0;
+		    --j;
+		    }
+		if(k==0){
+		    j=(i+1);
+		    while( (text[j]!='\n') || (text[j]!=EOF) || (k==0) ){
+			if(text[j]=='"')
+			    k=0;
+			else 
+			    k=1;
 		    ++j;
 		    };
 		}
