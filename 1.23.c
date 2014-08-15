@@ -99,31 +99,44 @@ void form(int len,char text[10000])
 void decomment(int len,char text[10000])
 {
 
-    int i,j,k;
+    int i,j,p,p1,p2,ex;
     
-    i=j=k=0;
+    i=j=p=p1=p2=ex=0;
     
     for (i=1;i<=len;++i){
 	if (text[i]=='/')
 	    if (text[i-1]=='/'){
-		j=(i-1);
-		k=1;
-		    while( (text[j]!='\n') || (k==0) ){
+		j=(i);
+		p=1;
+//		printf("before first check:text[%d]=%d;and in char =%c;p=%d;ex=%d\n",j,text[j],text[j],p,ex);
+		p1=ex=0;
+		while( (ex==0) && (p1==0) ){
 		    if(text[j]=='"')
-			k=0;
+			p1=1;
+		    if ( (j<=0) || (text[j]=='\n') )
+			ex=1;
 		    --j;
-		    }
-		if(k==0){
-		    j=(i+1);
-		    while( (text[j]!='\n') || (text[j]!=EOF) || (k==0) ){
-			if(text[j]=='"')
-			    k=0;
-			else 
-			    k=1;
-		    ++j;
 		    };
-		}
-		if (k==1)
+		if(p1==1){
+		    j=(i);
+		    p2=ex=0;
+//		    printf("second part of check\nbefore while p2=%d;ex=%d;j=%d\n",p2,ex,j);
+		    while( (ex==0) && (p2==0) ){
+			if(text[j]=='"')
+			    p2=1;
+			if( (text[j]=='\n') || (text[j]==EOF) || (j==len) )
+			    ex=1;
+			++j;
+//			printf("2:text[%d]=%d;%c;p2=%d;ex=%d\n",j,text[j],text[j],p2,ex);
+		    };
+		};
+		printf("p1=%d;p2=%d=p=%d;\n",p1,p2,p);
+//		if ( (p1==1) && (p2==1) )		//
+//		    p=0;				//
+//		else					//old logic of check)
+//		    p=1;				//
+//		if (p==1)				//
+		if ( (p1!=1) || (p2!=1) )
 		    text[i]=text[i-1]=' ';
 	    }
     };
@@ -135,14 +148,19 @@ void decomment(int len,char text[10000])
 		for (j=i+1;j<len;++j){
 		    if (text[j]=='*')
 			if (text[j+1]=='/')
-			text[j]=text[j+1]=' ';
+			    text[j]=text[j+1]=' ';
 		}
 	    
 	    }
     
     
-    }
+    };
+    
+    for(i=1;i<len;++i){
+	
     
     
-
+    
+    
+    };
 }
