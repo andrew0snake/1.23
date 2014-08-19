@@ -99,9 +99,9 @@ void form(int len,char text[10000])
 void decomment(int len,char text[10000])
 {
 
-    int i,j,p,p1,p2,ex;
+    int i,j,k,p,p1,p2,ex;
     
-    i=j=p=p1=p2=ex=0;
+    i=j=k=p=p1=p2=ex=0;
     
     for (i=1;i<=len;++i){
 	if (text[i]=='/')
@@ -116,7 +116,7 @@ void decomment(int len,char text[10000])
 		    if ( (j<=0) || (text[j]=='\n') )
 			ex=1;
 		    --j;
-		    };
+		};
 		if(p1==1){
 		    j=(i);
 		    p2=ex=0;
@@ -130,7 +130,7 @@ void decomment(int len,char text[10000])
 //			printf("2:text[%d]=%d;%c;p2=%d;ex=%d\n",j,text[j],text[j],p2,ex);
 		    };
 		};
-		printf("p1=%d;p2=%d=p=%d;\n",p1,p2,p);
+//		printf("p1=%d;p2=%d=p=%d;\n",p1,p2,p);
 //		if ( (p1==1) && (p2==1) )		//
 //		    p=0;				//
 //		else					//old logic of check)
@@ -141,7 +141,7 @@ void decomment(int len,char text[10000])
 	    }
     };
     
-    for (i=1;i<len;++i){
+/*    for (i=1;i<len;++i){
 	if (text[i]=='*')
 	    if (text[i-1]=='/'){
 		text[i]=text[i-1]=' ';
@@ -155,12 +155,63 @@ void decomment(int len,char text[10000])
     
     
     };
-    
+//----------------old easy check rule
+*/
+//----------------reinitialise variables
+    p1=p2=p=ex=0;
+//----------------search for first part of commentary /* */
     for(i=1;i<len;++i){
-	
-    
-    
-    
-    
+	if (text[i]=='*')
+	    if (text[i-1]=='/'){
+		j=(i-1);
+		while( (ex==0) && (p1==0) ){
+		    if (text[j]=='"')
+			p1=1;
+		    if ( (j<=0) || text[j]=='\n')
+			ex=1;
+		    --j;
+		}
+		if(p1==1){
+		    j=i;
+		    while( (ex==0) && (p2==0) ){
+			if(text[j]=='"')
+			    p2=1;
+			if(  (text[j]=='\n')  || (text[j]==EOF) ||(j==len) )
+			    ex=1;
+		    }
+		}
+		if( (p1!=1) || (p2!=1) ){
+		    text[i]=text[i-1]=' ';
+//--------------looking for second part of comment
+//		    p1=p2=ex=0;
+		    for(j=i;j<len;++j){
+			if(text[j]=='*')
+			    if(text[j+1]=='/'){
+			        k=j;
+			        p1=p2=p=0;
+				while( (ex==0) && (p1==0) ){
+				    if(text[k]=='"')
+					p1=1;
+				    if( (k<=0) || (text[k]=='\n') )
+					ex=1;
+				    --k;
+				}
+				k=j;
+				if(p1==1){
+				    while( (ex==0) && (p2==0) ){
+					if(text[k]=='"')
+					    p2=1;
+					if( (text[k]=='\n') || (text[k]==EOF) || (k==len) )
+					    ex=1;
+					--k;
+				    }
+				}
+				
+			    }
+			    if( (p1!=1) || (p2!=1) )
+				text[j]=text[j+1]=' ';
+		    }
+		}
+	    }
     };
 }
