@@ -14,10 +14,10 @@ void main ()
     printf("Enter text, what has to be formatted.\n");
 
     while( (l=gett(text) )>0 ){
-	printf("Non formatted text seems so:\n%s\n-------------------------------------",text);
+	printf("---------------Non formatted text seems so:--------------------|\n%s\n---------------------------------------------------------------|\n",text);
 //	form(l,text);
 	decomment(l,text);
-	printf("Same text after formatting seems so:\n%s",text);
+	printf("---------------Same text after formatting seems so:------------|\n%s\n---------------------------------------------------------------|\n",text);
 	
     }
     printf("normal end of program\n");
@@ -163,7 +163,7 @@ void decomment(int len,char text[10000])
     for(i=1;i<len;++i){
 	if (text[i]=='*')
 	    if (text[i-1]=='/'){
-		j=(i-1);
+		j=(i);
 		while( (ex==0) && (p1==0) ){
 		    if (text[j]=='"')
 			p1=1;
@@ -171,20 +171,25 @@ void decomment(int len,char text[10000])
 			ex=1;
 		    --j;
 		}
+		printf("after first check text[j+-1]=\"%c%c%c\";p1=%d;ex=%d;j=%d;\n",text[j-1],text[j],text[j+1],p1,ex,j);
 		if(p1==1){
 		    j=i;
+		    p2=ex=0;
 		    while( (ex==0) && (p2==0) ){
 			if(text[j]=='"')
 			    p2=1;
 			if(  (text[j]=='\n')  || (text[j]==EOF) ||(j==len) )
 			    ex=1;
+			++j;
 		    }
 		}
+		printf("after second check text[j+-1]=\"%c%c%c\";p2=%d;ex=%d;j=%d;\n",text[j-1],text[j],text[j+1],p2,ex,j);
 		if( (p1!=1) || (p2!=1) ){
 		    text[i]=text[i-1]=' ';
+		    printf("replased with spaces\n");
 //--------------looking for second part of comment
 //		    p1=p2=ex=0;
-		    for(j=i;j<len;++j){
+/*		    for(j=i;j<len;++j){
 			if(text[j]=='*')
 			    if(text[j+1]=='/'){
 			        k=j;
@@ -210,7 +215,7 @@ void decomment(int len,char text[10000])
 			    }
 			    if( (p1!=1) || (p2!=1) )
 				text[j]=text[j+1]=' ';
-		    }
+		    }*/
 		}
 	    }
     };
