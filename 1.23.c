@@ -211,7 +211,7 @@ void decomment(int len,char text[10000])
 			if(text[j]=='*')
 			    if(text[j+1]=='/'){
 			        k=j;
-			        p1=p2=p=0;
+			        p1=p2=p=ex=0;
 //			        printf("check for second part of comment, where j=%d;and j=%c;(j+1)=%d;and (j+1)=%c;text[j+1]=\"%c%c\";\n",j,j,(j+1),(j+1),text[j],text[j+1]);
 				while( (ex==0) && (p1==0) ){
 				    if(text[k]=='"')
@@ -219,10 +219,11 @@ void decomment(int len,char text[10000])
 				    if( (k<=0) || (text[k]=='\n') )
 					ex=1;
 				    --k;
-				    printf("while first check k=%d;text[k]=%c;p1=%d;ex=%d;\n",k,text[k],p1,ex);
+//				    printf("while first check k=%d;text[k]=%c;p1=%d;ex=%d;\n",k,text[k],p1,ex);
 				}
-				printf("after first check text[k+-2+-1]=\"%c%c%c%c%c\";p1=%d;ex=%d;k=%d;\n",text[k-2],text[k-1],text[k],text[k+1],text[k+2],p1,ex,k);
+//				printf("after first check text[k+-2+-1]=\"%c%c%c%c%c\";p1=%d;ex=%d;k=%d;\n",text[k-2],text[k-1],text[k],text[k+1],text[k+2],p1,ex,k);
 				k=j;
+				p2=ex=0;
 				if(p1==1){
 				    while( (ex==0) && (p2==0) ){
 					if(text[k]=='"')
@@ -233,7 +234,7 @@ void decomment(int len,char text[10000])
 				    }
 				}
 				
-				printf("after second check text[k+-1]=\"%c%c%c%c%c\";p2=%d;ex=%d;k=%d;\n",text[k-2],text[k-1],text[k],text[k+1],text[k+2],p2,ex,k);
+//				printf("after second check text[k+-1]=\"%c%c%c%c%c\";p2=%d;ex=%d;k=%d;\n",text[k-2],text[k-1],text[k],text[k+1],text[k+2],p2,ex,k);
 			    if( (p1!=1) || (p2!=1) )
 				text[j]=text[j+1]=' ';
 			    }
