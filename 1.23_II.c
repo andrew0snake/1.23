@@ -99,15 +99,16 @@ void form(int len,char text[10000])
 void decomment(int len,char text[10000])
 {
 
-    int i,j,k,p,p1,p2,ex,start,end;
+    int i,j,k,p,p1,p2,ex,start,end,diff;
     
-    i=j=k=p=p1=p2=ex=start=end=0;
+    i=j=k=p=p1=p2=ex=start=end=diff=0;
     
     for (i=1;i<=len;++i){
 	if (text[i]=='/')
 	    if (text[i-1]=='/'){
 		j=(i);
 		p=1;
+		start=(i-1);
 //		printf("before first check:text[%d]=%d;and in char =%c;p=%d;ex=%d\n",j,text[j],text[j],p,ex);
 		p1=ex=0;
 		while( (ex==0) && (p1==0) ){
@@ -149,6 +150,24 @@ void decomment(int len,char text[10000])
 		    }
 		    i=k;
 */
+		    p=0;
+		    k=i;
+		    while(p==0){
+			if( (text[k]=='\n') || (text[k]==EOF) )
+			    p=1;
+			if(p==1)
+			    end=k;
+			++k;
+		    }
+		    diff=end-start;
+		    printf("start=%d;end=%d;diff=%d\n",start,end,diff);
+		    if(text[end]==EOF)
+			printf("The end)\n");
+		    for(k=start;(k+diff)<=len;++k){
+//			printf("k=%d;text[k]=%d;\n",k,text[k]);
+			text[k]=text[k+diff];
+		    
+		    }
 		    ex=0;
 		}
 	    }
