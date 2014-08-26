@@ -155,14 +155,15 @@ void decomment(int len,char text[10000])
 		    while(p==0){
 			if( (text[k]=='\n') || (text[k]==EOF) )
 			    p=1;
-			if(p==1)
-			    end=k;
 			++k;
 		    }
+		    if(p==1)
+			end=(k-1);
 		    diff=end-start;
-		    printf("start=%d;end=%d;diff=%d\n",start,end,diff);
+//		    printf("start=%d;end=%d;diff=%d\n",start,end,diff);
 		    if(text[end]==EOF)
 			printf("The end)\n");
+//moving down "//" comments			
 		    for(k=start;(k+diff)<=len;++k){
 //			printf("k=%d;text[k]=%d;\n",k,text[k]);
 			text[k]=text[k+diff];
@@ -190,13 +191,13 @@ void decomment(int len,char text[10000])
 //----------------old easy check rule
 */
 //----------------reinitialise variables
-    p1=p2=p=ex=0;
+    p1=p2=p=ex=start=end=0;
 //----------------search for first part of commentary /* */
     for(i=1;i<len;++i){
 	if (text[i]=='*')
 	    if (text[i-1]=='/'){
 		j=(i);
-		p1=ex=0;
+		p1=ex=start=end=0;
 		while( (ex==0) && (p1==0) ){
 		    if (text[j]=='"'){
 			p1=1;
@@ -224,7 +225,9 @@ void decomment(int len,char text[10000])
 		}
 //		printf("after second check text[j+-1]=\"%c%c%c%c%c\";p2=%d;ex=%d;j=%d;\n",text[j-2],text[j-1],text[j],text[j+1],text[j+2],p2,ex,j);
 		if( (p1!=1) || (p2!=1) ){
-		    text[i]=text[i-1]=' ';
+//		    text[i]=text[i-1]=' ';
+		    start=(i-1);
+		    printf("start=i=%d;\n",start);
 //		    printf("replased with spaces\n");
 //--------------looking for second part of comment
 		    p1=p2=ex=0;
@@ -257,7 +260,14 @@ void decomment(int len,char text[10000])
 				
 //				printf("after second check text[k+-1]=\"%c%c%c%c%c\";p2=%d;ex=%d;k=%d;\n",text[k-2],text[k-1],text[k],text[k+1],text[k+2],p2,ex,k);
 			    if( (p1!=1) || (p2!=1) )
-				text[j]=text[j+1]=' ';
+//				text[j]=text[j+1]=' ';
+				end=j+1;
+				diff=end-start;
+				printf("end=(j-1)=%d;diff=%d\n",end,diff);
+				for(k=start;(k+diff)<=len;++k){
+				    text[k]=text[k+diff];
+//				    printf("text[k=%d]=%c;text[k+diff=%d]=%c\n",k,text[k],(k+diff),text[k+diff]);
+				}
 			    }
 		    }
 		}
