@@ -99,9 +99,9 @@ void form(int len,char text[10000])
 void decomment(int len,char text[10000])
 {
 
-    int i,j,k,p,p1,p2,ex,start,end,diff;
+    int i,j,k,p,p1,p2,ex,start,end,diff,st,et,count;
     
-    i=j=k=p=p1=p2=ex=start=end=diff=0;
+    i=j=k=p=p1=p2=ex=start=end=diff=st=et=count=0;
     
     for (i=1;i<=len;++i){
 	if (text[i]=='/')
@@ -197,20 +197,16 @@ void decomment(int len,char text[10000])
 	if (text[i]=='*')
 	    if (text[i-1]=='/'){
 		j=(i);
-		p1=ex=start=end=0;
+		p1=ex=start=end=st=et=0;
 		while( (ex==0) && (p1==0) ){
 		    if (text[j]=='"'){
 			p1=1;
-//			printf("text[j]=%c;\n",text[j]);
 		    }
-//		    printf("123123");
 		    if ( (j<=0) || text[j]=='\n'){
 			ex=1;
-//		        printf("check 1, where j=%d;text[j]=%c;\n",j,text[j]);
 		    }
 		    --j;
 		}
-//		printf("after first check text[j+-2+-1]=\"%c%c%c%c%c\";p1=%d;ex=%d;j=%d;\n",text[j-2],text[j-1],text[j],text[j+1],text[j+2],p1,ex,j);
 		if(p1==1){
 		    j=(i+1);
 		    p2=ex=0;
@@ -223,29 +219,24 @@ void decomment(int len,char text[10000])
 			++j;
 		    }
 		}
-//		printf("after second check text[j+-1]=\"%c%c%c%c%c\";p2=%d;ex=%d;j=%d;\n",text[j-2],text[j-1],text[j],text[j+1],text[j+2],p2,ex,j);
 		if( (p1!=1) || (p2!=1) ){
-//		    text[i]=text[i-1]=' ';
 		    start=(i-1);
-		    printf("start=i=%d;\n",start);
-//		    printf("replased with spaces\n");
+		    st=1;
+		    printf("start=i=%d;len=%d\n",start,len);
 //--------------looking for second part of comment
-		    p1=p2=ex=0;
+		    p1=p2=ex=et=count=0;
 		    for(j=i;j<len;++j){
 			if(text[j]=='*')
 			    if(text[j+1]=='/'){
 			        k=j;
-			        p1=p2=p=ex=0;
-//			        printf("check for second part of comment, where j=%d;and j=%c;(j+1)=%d;and (j+1)=%c;text[j+1]=\"%c%c\";\n",j,j,(j+1),(j+1),text[j],text[j+1]);
+			        p1=p=ex=0;
 				while( (ex==0) && (p1==0) ){
 				    if(text[k]=='"')
 					p1=1;
 				    if( (k<=0) || (text[k]=='\n') )
 					ex=1;
 				    --k;
-//				    printf("while first check k=%d;text[k]=%c;p1=%d;ex=%d;\n",k,text[k],p1,ex);
 				}
-//				printf("after first check text[k+-2+-1]=\"%c%c%c%c%c\";p1=%d;ex=%d;k=%d;\n",text[k-2],text[k-1],text[k],text[k+1],text[k+2],p1,ex,k);
 				k=j;
 				p2=ex=0;
 				if(p1==1){
@@ -258,19 +249,31 @@ void decomment(int len,char text[10000])
 				    }
 				}
 				
-//				printf("after second check text[k+-1]=\"%c%c%c%c%c\";p2=%d;ex=%d;k=%d;\n",text[k-2],text[k-1],text[k],text[k+1],text[k+2],p2,ex,k);
 			    if( (p1!=1) || (p2!=1) )
-//				text[j]=text[j+1]=' ';
 				end=j+1;
+				et=1;
 				diff=end-start;
 				printf("end=(j-1)=%d;diff=%d\n",end,diff);
-				for(k=start;(k+diff)<=len;++k){
-				    text[k]=text[k+diff];
-//				    printf("text[k=%d]=%c;text[k+diff=%d]=%c\n",k,text[k],(k+diff),text[k+diff]);
-				}
 			    }
-		    }
-		}
+			    if( (st==1) && (et==1) ) {
+				for(k=start;(k+diff)<len;++k){
+				    text[k]=text[k+diff];
+				    printf("text[k=%d]=%c;text[k+diff=%d]=%c\n",k,text[k],(k+diff),text[k+diff]);
+				}
+				len=len-diff;
+				++count;
+				printf("after moving len=%d;count=%d\n",len,count);
+			    }
+
+		    } // end of looking for second part of comment
+		}//end of second check for ending part of second comment
+	    }//end of first check for second comment
+/*	    if( (st==1) && (et==1) ) {
+		for(k=start;(k+diff)<=len;++k){
+		text[k]=text[k+diff];
+	    printf("text[k=%d]=%c;text[k+diff=%d]=%c\n",k,text[k],(k+diff),text[k+diff]);
 	    }
-    };
+	}*/
+	
+    };//end of cycle
 }
