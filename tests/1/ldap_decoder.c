@@ -77,7 +77,7 @@ void form(int len,char text[10000])
 void split(int some)
 {
     int i,j,k,l,len_str,ex1;
-    char str1[200],str2[200],str3[200];
+    char str1[200],str2[200];
     
     i=j=k=l=0;
     FILE *ldap_main,*tmp,*ldap_decoded;
@@ -89,14 +89,13 @@ void split(int some)
                 };
 
     for(i=0;i<200;++i){
-	str1[i]=str2[i]=str3[i]=0;
+	str1[i]=str2[i]=0;
     }
 
     ldap_main=fopen("ldap_main","r");
     for(i=0;i<10000;i=i+200){
 	printf("start of output\n");
         if (fgets(str1,i,ldap_main)!=NULL){
-	    printf("string 1:");
 	    puts(str1);
 	    j=0;
 	    printf("Check started;\n");
@@ -106,11 +105,7 @@ void split(int some)
 		str1[2]='m';
 		str1[3]='e';
 //		str1[4]=':';	    
-<<<<<<< HEAD
-	    
-=======
 		printf("Begin of string=cn;\n");
->>>>>>> 35bc1cedc913ef167a373828ba8ab018d688f879
 		j=4;
 		k=0;
 		for(l=0;l<=100;++l){
@@ -129,13 +124,8 @@ void split(int some)
 		
 		tmp=fopen("tmp","w+");
 		fputs(str2,tmp);
-<<<<<<< HEAD
-		fgets(str3,200,tmp);
-		printf("string 3:%s",str3);
-=======
 		fclose(tmp);
 
->>>>>>> 35bc1cedc913ef167a373828ba8ab018d688f879
 		execvp(name[0],name);
 
 /*		tmp=fopen("tmp_decoded","r");
@@ -147,6 +137,4 @@ void split(int some)
     }
 //    for(i=0;i<len;++i){
 //    }
-    fclose(ldap_main);
-    fclose(tmp);
 }
