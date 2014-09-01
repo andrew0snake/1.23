@@ -107,10 +107,11 @@ void /*decomment(int len*/,char text[10000])
 	if (text[i]=='/')
 	    if (text[i-1]=='/')//{
 	//	text[i]=' ';
-		printf("// inserted comment//"); //
+		//printf//("// inserted //comment//"); //
 		text[i-1]=' ';
 	    }
-    
+/*		sasdasdad
+    */    
 // 123 // 123 // 123 ////////123123123 ////123    
     }
 
