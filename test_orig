@@ -107,11 +107,22 @@ void /*decomment(int len*/,char text[10000])
 	if (text[i]=='/')
 	    if (text[i-1]=='/')//{
 	//	text[i]=' ';
-		printf("// inserted comment//"); //
+printf("// inserted comment//"); //
+"// test//test"
+printf("/* inserted comment*/"); //
+"//*123/*/456"
+"/*iop*/"
+ /*test_message*/ 
 		text[i-1]=' ';
 	    }
-    
-// 123 // 123 // 123 ////////123123123 ////123    
+// 789 // qwe /// asd ////////123123123 ////123    
     }
 
 }
+
+/*123*/123
+a1a2a3
+/*456*/456
+b4b5b6
+/* */789
+c7c8c9
