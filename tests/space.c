@@ -51,7 +51,7 @@ void main (){
     fclose(tmp1);
     
     tmp1=fopen("ldap_wel","r");
-    for(i=0;i<30;++i){
+    for(i=0;i<32;++i){
 	fgets(str2,100,tmp1);
 	printf("string getted=%s\n",str2);
 	if( (str2[0]=='m') && (str2[1]=='a') && (str2[2]=='i') && (str2[3]=='l') )

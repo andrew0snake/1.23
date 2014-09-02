@@ -5,7 +5,7 @@
 
 void main(){
 
-    int i,j,k,l,concat;
+    int i,j,k,l,concat,prev_str;
     char str1[200],str2[400],str3[200];
     FILE *tmp1,*tmp2,*ldap_main,*ldap_wel,*ldap_ws;
 
@@ -36,10 +36,10 @@ void main(){
     for(i=0;i<=200;++i){
 	str1[i]=str2[i]=0;
     }
-    concat=0;    
+    concat=prev_str=0;    
 
     ldap_wel=fopen("ldap_wel","r");
-    for(i=0;i<31;++i){
+    for(i=0;i<2005;++i){
 	memset(str1,0,strlen(str1) );
 	fgets(str1,100,ldap_wel);
 //        if( (str1[0]=='m') && (str1[1]=='a') && (str1[2]=='i') && (str1[3]=='l') )
@@ -50,6 +50,7 @@ void main(){
 	    fputs(str1,tmp1);
 	    fclose(tmp1);
 	    
+	    prev_str=0;
 //	    printf("begin of string=cn;\n");
 	    memset(str1,0,strlen(str1) );
 	    memset(str2,0,strlen(str2) );
@@ -70,25 +71,34 @@ void main(){
 	    fclose(tmp1);
 	    printf("Concatenated strings are:%s|str2\n%s|str1\n",str2,str1);	    
 	    
-	    printf("string is second part;\n");
+	    prev_str=0;
+//	    printf("string is second part;\n");
 	    memset(str1,0,strlen(str1) );
 	    memset(str2,0,strlen(str2) );
 
 
 	}
 	if( (str1[0]=='m') && (str1[1]=='a') && (str1[2]=='i') && (str1[3]=='l') ){
-	    tmp1=fopen("tmp_str","r");
-	    fgets(str2,200,tmp1);
-	    fclose(tmp1);
-	    printf("getted string=%s;\n",str2);
+	    if(prev_str==0){
+		tmp1=fopen("tmp_str","r");
+		fgets(str2,200,tmp1);
+		fclose(tmp1);
+		printf("in tmp_str is||%s||\n",str2);
 	    
-	    tmp1=fopen("ldap_ws","a+");
-	    fputs(str2,tmp1);
-	    fputs(str1,tmp1);
-	    fclose(tmp1);
+		tmp1=fopen("ldap_ws","a+");
+		fputs(str2,tmp1);
+		fputs(str1,tmp1);
+		fclose(tmp1);
+	    }
+	    else {
+		tmp1=fopen("ldap_ws","a+");
+		fputs(str1,tmp1);
+		fclose(tmp1);
+	    }
 	    
 	    printf("str1=%s;\nstr2=%s\n",str1,str2);
 	    
+	    prev_str=1;
 	    tmp1=fopen("tmp_str","w");
 	    fclose(tmp1);
 	}
