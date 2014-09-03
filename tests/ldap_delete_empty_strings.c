@@ -44,7 +44,7 @@ void main(){
 	fgets(str1,100,ldap_wel);
 //        if( (str1[0]=='m') && (str1[1]=='a') && (str1[2]=='i') && (str1[3]=='l') )
 //	    printf("123123123");
-	printf("We got string|%s|\n",str1);
+//	printf("We got string|%s|\n",str1);
 	if( (str1[0]=='c') && (str1[1]=='n') && (str1[2]==':') && (str1[3]==':') ){
 	    tmp1=fopen("tmp_str","w");
 	    fputs(str1,tmp1);
@@ -69,7 +69,7 @@ void main(){
 	    tmp1=fopen("ldap_ws","a+");
 	    fputs(str2,tmp1);
 	    fclose(tmp1);
-	    printf("Concatenated strings are:%s|str2\n%s|str1\n",str2,str1);	    
+//	    printf("Concatenated strings are:%s|str2\n%s|str1\n",str2,str1);	    
 	    
 	    prev_str=0;
 //	    printf("string is second part;\n");
@@ -83,7 +83,7 @@ void main(){
 		tmp1=fopen("tmp_str","r");
 		fgets(str2,200,tmp1);
 		fclose(tmp1);
-		printf("in tmp_str is||%s||\n",str2);
+//		printf("in tmp_str is||%s||\n",str2);
 	    
 		tmp1=fopen("ldap_ws","a+");
 		fputs(str2,tmp1);
@@ -96,7 +96,7 @@ void main(){
 		fclose(tmp1);
 	    }
 	    
-	    printf("str1=%s;\nstr2=%s\n",str1,str2);
+//	    printf("str1=%s;\nstr2=%s\n",str1,str2);
 	    
 	    prev_str=1;
 	    tmp1=fopen("tmp_str","w");

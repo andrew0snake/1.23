@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 #define TAB 50
 
 int gett(char text[10000]);
@@ -86,64 +87,54 @@ void split(int some)
             "/bin/tcsh",
             "-c",        
             "cat tmp|base64 -d>tmp_decoded;",
-                };
+            };
 
     for(i=0;i<200;++i){
 	str1[i]=str2[i]=str3[i]=0;
     }
 
-    ldap_main=fopen("ldap_main","r");
-    for(i=0;i<10000;i=i+200){
+    ldap_main=fopen("ldap_ws","r");
+    for(i=0;i<2000;++i){
 	printf("start of output\n");
-        if (fgets(str1,i,ldap_main)!=NULL){
-	    printf("string 1:");
-	    puts(str1);
-	    j=0;
-	    printf("Check started;\n");
-	    if( (str1[0]=='c') && (str1[1]=='n') ){
-		str1[0]='n';
+//        if (fgets(str1,100,ldap_main)!=NULL){
+	  fgets(str1,100,ldap_main);
+	  printf("string 1:");
+	  puts(str1);
+	  j=0;
+	  printf("Check started;\n");
+	  if( (str1[0]=='c') && (str1[1]=='n') ){
+	  	str1[0]='n';
 		str1[1]='a';
 		str1[2]='m';
 		str1[3]='e';
-//		str1[4]=':';	    
-<<<<<<< HEAD
 	    
-=======
-		printf("Begin of string=cn;\n");
->>>>>>> 35bc1cedc913ef167a373828ba8ab018d688f879
 		j=4;
 		k=0;
-		for(l=0;l<=100;++l){
-		    str2[l]=0;
-		    printf("str[%d]=%d;\n",l,str2[l]);
-		}
+	    	memset(str2,0,strlen(str2));	
+
+
 		while( (str1[j]!='\n') ){
 		    str2[k]=str1[j];
 		    ++k;
 		    ++j;
-//		    printf("k=%d;j=%d;\n",k,j);
 		}
 		printf("string 2:");
 		puts(str2);
 		printf("And after encoding string seems so:");
-		
-		tmp=fopen("tmp","w+");
-		fputs(str2,tmp);
-<<<<<<< HEAD
-		fgets(str3,200,tmp);
-		printf("string 3:%s",str3);
-=======
-		fclose(tmp);
+	 	
+		tmp=fopen("tmp","w");
+		fputs(str2,tmp);	
+		//fclose(tmp);
+	
+//		execvp(name[0],name);
 
->>>>>>> 35bc1cedc913ef167a373828ba8ab018d688f879
-		execvp(name[0],name);
-
-/*		tmp=fopen("tmp_decoded","r");
+		tmp=fopen("tmp_decoded","r");
 		fgets(str2,100,tmp);
 		fclose(tmp);
-*/	    }
+		printf("decoded_string=||%s||\n",str2);
+	    }
 		printf("Count of output symbols is:%d;\n",i);
-	}
+	
     }
 //    for(i=0;i<len;++i){
 //    }
