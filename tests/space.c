@@ -58,4 +58,7 @@ void main (){
 	    printf("It works!\n");
     }
 	fclose(tmp1);
+    c=' ';
+    printf("c in digit=%d;and in char=%c;",c,c);
+
 }

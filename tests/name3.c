@@ -62,7 +62,7 @@ void decode (){
 	    tmp2=fopen("ldap_decoded","a+");
 	    fputs(str3,tmp2);
 	    fclose(tmp2);
-	    printf("string|%s| is in ldap_decoded.\n",str2);
+	    printf("string|%s| is in ldap_decoded.\n",str3);
 	    system("echo " ">>ldap_decoded;");
 	    
 	    memset(str,0,strlen(str) );

@@ -29,6 +29,7 @@ void main()
     }
 */
     base64_decode(string1,200,200);
+    printf("%s",string1);
 }
 
 char *base64_encode(const unsigned char *data,
