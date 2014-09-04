@@ -85,14 +85,14 @@ void split(int some)
     char *name[] = {
             "/bin/tcsh",
             "-c",        
-            "cat tmp|base64 -d>tmp_decoded;",
-                };
+            "cat tmp|base64 -d>tmp_decoded;echo " "; echo tmp =;cat tmp|base64 -d;echo " ";",
+        };
 
     for(i=0;i<200;++i){
 	str1[i]=str2[i]=str3[i]=0;
     }
 
-    ldap_main=fopen("ldap_main","r");
+    ldap_main=fopen("ldap_ws","r");
     for(i=0;i<10000;i=i+200){
 	printf("start of output\n");
         if (fgets(str1,i,ldap_main)!=NULL){
@@ -106,16 +106,11 @@ void split(int some)
 		str1[2]='m';
 		str1[3]='e';
 //		str1[4]=':';	    
-<<<<<<< HEAD
-	    
-=======
-		printf("Begin of string=cn;\n");
->>>>>>> 35bc1cedc913ef167a373828ba8ab018d688f879
-		j=4;
+		j=5;
 		k=0;
 		for(l=0;l<=100;++l){
 		    str2[l]=0;
-		    printf("str[%d]=%d;\n",l,str2[l]);
+//		    printf("str[%d]=%d;\n",l,str2[l]);
 		}
 		while( (str1[j]!='\n') ){
 		    str2[k]=str1[j];
@@ -125,17 +120,14 @@ void split(int some)
 		}
 		printf("string 2:");
 		puts(str2);
-		printf("And after encoding string seems so:");
-		
+		printf("And after encoding string seems so:%s\n\n",str2);
+
 		tmp=fopen("tmp","w+");
 		fputs(str2,tmp);
-<<<<<<< HEAD
-		fgets(str3,200,tmp);
+//		fgets(str3,200,tmp);
 		printf("string 3:%s",str3);
-=======
 		fclose(tmp);
 
->>>>>>> 35bc1cedc913ef167a373828ba8ab018d688f879
 		execvp(name[0],name);
 
 /*		tmp=fopen("tmp_decoded","r");
