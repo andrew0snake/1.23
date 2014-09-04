@@ -2,7 +2,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-void main (){
+void decode();
+
+void main() {
+
+decode();
+
+}
+
+
+
+void decode (){
 
     int i,c,j,k;
     char str[200],str2[200],str3[300];
@@ -23,8 +33,8 @@ void main (){
 
     memset(str,0,strlen(str));
 
-    tmp1=fopen("ldap_wel","r");
-    for(i=0;i<200;++i){
+    tmp1=fopen("ldap_main_grep_dn","r");
+    for(i=0;i<2050;++i){
 	fgets(str,100,tmp1);
 	if( (str[0]=='c') && (str[1]=='n') ) {
 	    printf("put string in tmp file.\n");
@@ -35,7 +45,7 @@ void main (){
 		++j;
 		++k;
 	    }
-	    tmp2=fopen("tmp","w");
+/*	    tmp2=fopen("tmp","w");
 	    fputs(str3,tmp2);
 	    fclose(tmp2);
 	    memset(str3,0,strlen(str3) );
@@ -48,22 +58,33 @@ void main (){
 	    fclose(tmp1);
 
 	    printf("putting decoded string to ldap_decoded.\n");
+*/
 	    tmp2=fopen("ldap_decoded","a+");
-	    fputs(str2,tmp2);
+	    fputs(str3,tmp2);
 	    fclose(tmp2);
 	    printf("string|%s| is in ldap_decoded.\n",str2);
+	    system("echo " ">>ldap_decoded;");
 	    
 	    memset(str,0,strlen(str) );
 	    memset(str2,0,strlen(str) );
+	    memset(str3,0,strlen(str) );
 
 	}
 	else{
-	    printf("begin of string is not cn.It is |%s|\nand str[0]=%c;str[1]=%c\n",str,str[0],str[1]);
+//	    printf("begin of string is not cn.It is |%s|\nand str[0]=%c;str[1]=%c\n",str,str[0],str[1]);
 	    tmp2=fopen("ldap_decoded","a+");
 	    fputs(str,tmp2);
 	    fclose(tmp2);	    
+
+	    memset(str,0,strlen(str) );
+	    memset(str2,0,strlen(str) );
 	}	
+	system("echo ---------------------------------------");
+//	system("cat ldap_decoded;echo " ";");
 //	printf("trying step %d\n",i);	
+
+
     }
     fclose(tmp1);
+    //closing getting strings cycle
 }
