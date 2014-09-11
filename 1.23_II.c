@@ -170,6 +170,7 @@ void decomment(int len,char text[10000])
 		    
 		    }
 		    ex=0;
+		    len=len-diff;
 		}
 	    }
     };
@@ -208,15 +209,15 @@ void decomment(int len,char text[10000])
 		    --j;
 		}
 		if(p1==1){
-		    j=(i+1);
+		    k=(i+1);
 		    p2=ex=0;
 		    while( (ex==0) && (p2==0) ){
-			if(text[j]=='"')
+			if(text[k]=='"')
 			    p2=1;
-			if(  (text[j]=='\n')  || (text[j]==EOF) ||(j==len) ){
+			if(  (text[k]=='\n')  || (text[k]==EOF) ||(k==len) ){
 			    ex=1;	
 			}
-			++j;
+			++k;
 		    }
 		}
 		if( (p1!=1) || (p2!=1) ){
@@ -229,7 +230,7 @@ void decomment(int len,char text[10000])
 			if(text[j]=='*')
 			    if(text[j+1]=='/'){
 			        k=j;
-			        p1=p=ex=0;
+			        p1=p2=ex=0;
 				while( (ex==0) && (p1==0) ){
 				    if(text[k]=='"')
 					p1=1;
@@ -250,19 +251,20 @@ void decomment(int len,char text[10000])
 				}
 				
 			    if( (p1!=1) || (p2!=1) )
-				end=j+1;
+				end=(j+1)+1;
 				et=1;
 				diff=end-start;
-				printf("end=(j-1)=%d;diff=%d\n",end,diff);
+				printf("end=(j+2)=%d;diff=%d\n",end,diff);
 			    }
 			    if( (st==1) && (et==1) ) {
-				for(k=start;(k+diff)<len;++k){
+				for(k=start;(k+diff)<=len;++k){
 				    text[k]=text[k+diff];
 				    printf("text[k=%d]=%c;text[k+diff=%d]=%c\n",k,text[k],(k+diff),text[k+diff]);
 				}
 				len=len-diff;
 				++count;
 				printf("after moving len=%d;count=%d\n",len,count);
+			    st=et=0;//very,very important destroing of counters!!!
 			    }
 
 		    } // end of looking for second part of comment
