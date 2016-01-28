@@ -6,8 +6,8 @@ echo "">cns_clean;
 #ou=users,dc=main_office,dc=rosbt,dc=com
 set ldapurl="ldap://ldap.rosbt.com:389"
 set basedn="OU=users,dc=main_office,DC=rosbt,DC=com"
-set binddn="uid=tanin.a.a,ou=users,dc=main_office,dc=rosbt,dc=com"
-set ldappas="rdc831\!#"
+set binddn="uid=username,ou=users,dc=main_office,dc=rosbt,dc=com"
+set ldappas="password\!#"
 
 ##ldapsrc="ldapsearch -LLL -H $ldapurl -b $basedn -D $binddn -w $ldappas"
 ##ldapsearch -LLL -H $ldapurl -b $basedn -D $binddn -w $ldappas cn mail
